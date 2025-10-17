@@ -1,0 +1,48 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>com.fashion.devbrowser</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>DevBrowser</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="support@devbrowser.dev" url="https://www.devbrowser.dev">DevBrowser</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description><![CDATA[
+    <p>一个集成在 IntelliJ IDEA 中的开发者友好型浏览器插件</p>
+    <h3>✨ 核心特性:</h3>
+    <ul>
+        <li>🌐 嵌入式 Chromium 浏览器 - 完整的现代网页浏览能力</li>
+        <li>📱 设备模式切换 - 一键切换 PC/移动端视口和 User-Agent</li>
+        <li>⭐ 书签管理 - 添加、编辑、删除和快速访问常用网站</li>
+        <li>🎨 Darcula 主题适配 - 网页自动适配 IDE 深色主题，视觉统一</li>
+        <li>💾 设置持久化 - 自动保存浏览状态、书签和配置</li>
+    </ul>
+  ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Tool Window Registration -->
+        <toolWindow id="DevBrowser"
+                    anchor="right"
+                    icon="/icons/browser.svg"
+                    factoryClass="com.devbrowser.DevBrowserToolWindowFactory"/>
+
+        <!-- Settings Persistence -->
+        <projectService serviceImplementation="com.devbrowser.settings.DevBrowserSettingsState"/>
+
+        <!-- Bookmark Manager Service -->
+        <projectService serviceImplementation="com.devbrowser.bookmark.BookmarkManager"/>
+    </extensions>
+</idea-plugin>
