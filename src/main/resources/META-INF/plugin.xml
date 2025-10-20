@@ -36,6 +36,13 @@
     </ul>
   ]]></description>
 
+    <change-notes><![CDATA[
+    <ul>
+        <li><b>1.1.0</b>: Support more IDEA versions</li>
+        <li><b>1.0.0</b>: First release!</li>
+    </ul>
+  ]]></change-notes>
+
     <!-- Product and plugin compatibility requirements.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
