@@ -8,12 +8,23 @@
     <name>DevBrowser</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor email="support@devbrowser.dev" url="https://www.devbrowser.dev">DevBrowser</vendor>
+    <vendor email="xuefa921@gmail.com" url="https://github.com/fashionzzZ">Fashion</vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
+    <p>A developer friendly browser plugin integrated into IntelliJ IDEA</p>
+    <h3>✨ Features:</h3>
+    <ul>
+        <li>🌐 Embedded Chromium Browser - Complete Modern Web Browsing Capability</li>
+        <li>📱 Device mode switching - one click switching between PC/mobile viewport and User Agent</li>
+        <li>⭐ Bookmark Management - Add, Edit, Delete, and Quickly Access Frequently Used Websites</li>
+        <li>🎨 Darcula Theme Adaptation - Web pages automatically adapt to IDE dark themes, visually unified</li>
+        <li>💾 Set persistence - automatically save browsing status, bookmarks, and configurations</li>
+    </ul>
+
+    <h3>中文：</h3>
     <p>一个集成在 IntelliJ IDEA 中的开发者友好型浏览器插件</p>
     <h3>✨ 核心特性:</h3>
     <ul>

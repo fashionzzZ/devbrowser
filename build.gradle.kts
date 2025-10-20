@@ -4,7 +4,7 @@ plugins {
     id("org.jetbrains.intellij") version "1.17.2"
 }
 
-group = "com.devbrowser"
+group = "com.fashion.devbrowser"
 version = "1.0.0"
 
 repositories {
