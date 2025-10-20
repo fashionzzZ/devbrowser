@@ -1,9 +1,9 @@
 # DevBrowser - IntelliJ IDEA 浏览器插件
 
-> **最后更新**: Fri Oct 17 16:16:23 CST 2025
+> **最后更新**: 2025-10-20 (Version 1.1.0)
 > **项目类型**: IntelliJ IDEA Plugin (Kotlin)
-> **构建工具**: Gradle 8.5
-> **目标平台**: IntelliJ IDEA 2024.3.3+
+> **构建工具**: Gradle 8.10 + IntelliJ Platform Gradle Plugin 2.2.1
+> **目标平台**: IntelliJ IDEA 2024.3+ ~ 2025.2+ (Build 243 ~ 252.*)
 
 ---
 
@@ -137,11 +137,11 @@ graph TB
 
 | 组件 | 版本/类型 | 用途 |
 |------|-----------|------|
-| **语言** | Kotlin 1.9.22 | 主开发语言 |
-| **JVM** | Java 17 | 运行时环境 |
-| **平台** | IntelliJ Platform SDK 2024.3.3 | 插件框架 |
+| **语言** | Kotlin 2.2.0 | 主开发语言 (支持 K2 编译器) |
+| **JVM** | Java 17 (推荐 21) | 运行时环境 |
+| **平台** | IntelliJ Platform SDK 2025.2.3 | 插件框架 |
 | **浏览器引擎** | JCEF (JBCefBrowser) | Chromium 内核 |
-| **构建工具** | Gradle 8.5 + IntelliJ Plugin | 构建和打包 |
+| **构建工具** | Gradle 8.10 + IntelliJ Platform Gradle Plugin 2.x | 构建和打包 |
 | **布局管理** | Swing (BorderLayout, FlowLayout) | UI 布局 |
 
 ---
@@ -176,9 +176,9 @@ graph TB
 ## 🚀 快速开始
 
 ### 开发环境要求
-- IntelliJ IDEA 2024.3.3+
-- JDK 17 (推荐 JetBrains Runtime)
-- Gradle 8.5+
+- IntelliJ IDEA 2024.3+ 或 2025.2+
+- JDK 17 (系统最低要求) 或 JDK 21 (官方推荐)
+- Gradle 8.10+ (由 Wrapper 自动管理)
 
 ### 构建命令
 ```bash
@@ -259,5 +259,5 @@ MIT License
 
 **注意事项**:
 - JCEF 需要使用 JetBrains Runtime JDK，某些平台可能不支持
-- 插件 ID `com.devbrowser` 在发布后不能更改
-- 当前支持 IntelliJ IDEA 版本 243.* (2024.3.x 系列)
+- 插件 ID `com.fashion.devbrowser` 在发布后不能更改
+- **版本支持**: IntelliJ IDEA 2024.3+ ~ 2025.2+ (Build 243 ~ 252.*)

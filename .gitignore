@@ -5,10 +5,14 @@ build/
 
 # IntelliJ IDEA
 .idea/
+.kotlin
 *.iml
 *.iws
 *.ipr
 out/
+
+# IntelliJ Platform Gradle Plugin 2.x cache
+.intellijPlatform/
 
 # macOS
 .DS_Store

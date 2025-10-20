@@ -6,10 +6,11 @@
 
 **一个集成在 IntelliJ IDEA 中的开发者友好型浏览器插件**
 
-[![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ%20IDEA-2024.3.3+-blue.svg)](https://www.jetbrains.com/idea/)
-[![Kotlin](https://img.shields.io/badge/Kotlin-1.9.22-orange.svg)](https://kotlinlang.org/)
+[![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ%20IDEA-2024.3+~2025.2+-blue.svg)](https://www.jetbrains.com/idea/)
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.2.0-orange.svg)](https://kotlinlang.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![JDK](https://img.shields.io/badge/JDK-17-red.svg)](https://adoptium.net/)
+[![JDK](https://img.shields.io/badge/JDK-17+-red.svg)](https://adoptium.net/)
+[![Gradle](https://img.shields.io/badge/Gradle-8.10-brightgreen.svg)](https://gradle.org/)
 
 </div>
 
@@ -56,9 +57,10 @@ DevBrowser 是一个轻量级的 IntelliJ IDEA 浏览器插件，为开发者提
 
 | 组件 | 最低版本 | 推荐版本 |
 |------|----------|----------|
-| **IntelliJ IDEA** | 2024.3.3 | 最新版 |
-| **JDK** | 17 | JetBrains Runtime 17 |
-| **Gradle** | 8.5 | 8.5+ |
+| **IntelliJ IDEA** | 2024.3 (Build 243) | 2025.2+ (Build 252.*) |
+| **JDK** | 17 | JetBrains Runtime 21 |
+| **Gradle** | 8.10 | 8.10+ |
+| **Kotlin** | 2.2.0 | 2.2.0 |
 
 #### 安装步骤
 
@@ -73,7 +75,7 @@ cd devbrowser
 ./gradlew buildPlugin
 
 # 3. 安装插件
-# 插件包位于: build/distributions/devbrowser-1.0.0.zip
+# 插件包位于: build/distributions/devbrowser-1.1.0.zip
 # 在 IDEA 中: Settings → Plugins → Install Plugin from Disk → 选择 zip 文件
 ```
 
@@ -131,10 +133,10 @@ devbrowser/
 
 ### 🛠️ 技术栈
 
-- **语言**: Kotlin 1.9.22
-- **平台**: IntelliJ Platform SDK 2024.3.3
+- **语言**: Kotlin 2.2.0 (K2 Compiler)
+- **平台**: IntelliJ Platform SDK 2025.2.3 (支持 2024.3+ ~ 2025.2+)
 - **浏览器引擎**: JCEF (Chromium Embedded Framework)
-- **构建工具**: Gradle 8.5 + Gradle IntelliJ Plugin
+- **构建工具**: Gradle 8.10 + IntelliJ Platform Gradle Plugin 2.2.1
 - **UI 框架**: Swing (BorderLayout, FlowLayout)
 
 ### 🎯 设计原则
