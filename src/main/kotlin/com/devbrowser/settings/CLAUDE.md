@@ -15,7 +15,7 @@
 | 文件名 | 行数 | 职责 | 类型 |
 |--------|------|------|------|
 | **DevBrowserSettingsState.kt** | ~80 | 持久化状态管理 | @Service + PersistentStateComponent |
-| **DevBrowserSettings.kt** | 27 | 设置数据容器 | Data Class |
+| **DevBrowserSettings.kt** | ~20 | 设置数据容器 | Data Class |
 
 ---
 
@@ -38,7 +38,6 @@
     │  DevBrowserSettings            │ Data Class
     │  (数据容器)                     │
     │  - lastUrl: String             │
-    │  - themeEnabled: Boolean       │
     │  - bookmarks: MutableList      │
     └─────────┬──────────────────────┘
               │ XML 序列化/反序列化
@@ -115,7 +114,6 @@ companion object {
 ```kotlin
 data class DevBrowserSettings(
     var lastUrl: String = "https://www.google.com",
-    var themeEnabled: Boolean = false,
     var bookmarks: MutableList<Bookmark> = mutableListOf()
 )
 ```
@@ -125,14 +123,12 @@ data class DevBrowserSettings(
 | 字段 | 类型 | 默认值 | 用途 |
 |------|------|--------|------|
 | `lastUrl` | `String` | `https://www.google.com` | 上次访问的 URL |
-| `themeEnabled` | `Boolean` | `false` | Darcula 主题启用状态 |
 | `bookmarks` | `MutableList<Bookmark>` | 空列表 | 书签列表 |
 
 **XML 序列化示例**:
 ```xml
 <component name="DevBrowserSettings">
   <option name="lastUrl" value="https://github.com" />
-  <option name="themeEnabled" value="true" />
   <option name="bookmarks">
     <list>
       <Bookmark>
@@ -151,8 +147,7 @@ data class DevBrowserSettings(
 ## 🔗 模块间依赖
 
 **被依赖方（消费者）**:
-- `../ui/DevBrowserPanel` - 读取 `lastUrl`、`themeEnabled`
-- `../ui/BrowserToolbar` - 更新 `themeEnabled`
+- `../ui/DevBrowserPanel` - 读取 `lastUrl`
 - `../bookmark/BookmarkManager` - 管理 `bookmarks` 列表
 
 **依赖的模块**:
@@ -202,16 +197,12 @@ IntelliJ 自动检测状态变化
 // 在业务层组件中
 val settingsState = DevBrowserSettingsState.getInstance(project)
 val lastUrl = settingsState.state.lastUrl
-val isThemeEnabled = settingsState.state.themeEnabled
 ```
 
 ### 修改设置
 ```kotlin
 // 更新 URL
 settingsState.state.lastUrl = "https://example.com"
-
-// 切换主题
-settingsState.state.themeEnabled = !settingsState.state.themeEnabled
 
 // 添加书签
 settingsState.state.bookmarks.add(

@@ -9,13 +9,12 @@
 
 ## 📋 项目概述
 
-DevBrowser 是一个轻量级的 IntelliJ IDEA 浏览器插件，为开发者提供集成在 IDE 内的浏览器体验。基于 JCEF (Java Chromium Embedded Framework) 实现，支持书签管理、设备模式切换和主题适配等功能。
+DevBrowser 是一个轻量级的 IntelliJ IDEA 浏览器插件，为开发者提供集成在 IDE 内的浏览器体验。基于 JCEF (Java Chromium Embedded Framework) 实现，支持书签管理、设备模式切换等功能。
 
 ### 核心特性
 - 🌐 **嵌入式 Chromium 浏览器** - 完整的网页浏览能力
 - 📱 **设备模式切换** - PC/移动端视口和 User-Agent 模拟
 - ⭐ **书签管理** - 添加、编辑、删除和快速访问书签
-- 🎨 **Darcula 主题适配** - 与 IDE 深色主题同步
 - 💾 **设置持久化** - 自动保存浏览状态和配置
 
 ---
@@ -47,10 +46,6 @@ graph TB
             DeviceModel[MobileDevice<br/>设备配置]
         end
 
-        subgraph "Theme Module - theme/"
-            ThemeAdapter[DarculaThemeAdapter<br/>主题CSS注入]
-        end
-
         subgraph "Settings - settings/"
             SettingsState[DevBrowserSettingsState<br/>@Service - 持久化]
             SettingsData[DevBrowserSettings<br/>数据类]
@@ -68,15 +63,12 @@ graph TB
     Panel --> JCEF
     Toolbar --> BookmarkMgr
     Toolbar --> DeviceCtrl
-    Toolbar --> ThemeAdapter
 
     DeviceCtrl --> UAHandler
     DeviceCtrl --> Viewport
     DeviceCtrl --> DeviceModel
     Viewport --> JCEF
     UAHandler --> JCEF
-
-    ThemeAdapter --> JCEF
 
     BookmarkMgr --> SettingsState
     BookmarkMgr --> BookmarkModel
@@ -96,7 +88,7 @@ graph TB
 
     class Factory entry
     class Panel,Toolbar ui
-    class BookmarkMgr,DeviceCtrl,ThemeAdapter,SettingsState service
+    class BookmarkMgr,DeviceCtrl,SettingsState service
     class BookmarkModel,DeviceModel,SettingsData model
     class JCEF,PersistentAPI,ServiceAPI platform
 ```
@@ -108,12 +100,11 @@ graph TB
 
 **2. UI 层 (UI Layer)**
 - `DevBrowserPanel`: 主容器，管理浏览器和工具栏布局
-- `BrowserToolbar`: 导航控制、书签按钮、设备切换、主题切换
+- `BrowserToolbar`: 导航控制、书签按钮、设备切换
 
 **3. 业务层 (Core Features)**
 - **Bookmark 模块**: 书签业务逻辑和 UI 组件
 - **Device 模块**: 设备模式切换、User-Agent 和视口管理
-- **Theme 模块**: Darcula 主题 CSS 注入
 - **Settings 模块**: 配置数据持久化
 
 **4. 平台层 (Platform)**
@@ -128,7 +119,6 @@ graph TB
 | **UI 模块** | `src/main/kotlin/com/devbrowser/ui/` | 用户界面组件 | [UI/CLAUDE.md](src/main/kotlin/com/devbrowser/ui/CLAUDE.md) |
 | **书签模块** | `src/main/kotlin/com/devbrowser/bookmark/` | 书签管理业务逻辑 | [bookmark/CLAUDE.md](src/main/kotlin/com/devbrowser/bookmark/CLAUDE.md) |
 | **设备模块** | `src/main/kotlin/com/devbrowser/device/` | 设备模式切换 | [device/CLAUDE.md](src/main/kotlin/com/devbrowser/device/CLAUDE.md) |
-| **主题模块** | `src/main/kotlin/com/devbrowser/theme/` | Darcula 主题适配 | [theme/CLAUDE.md](src/main/kotlin/com/devbrowser/theme/CLAUDE.md) |
 | **设置模块** | `src/main/kotlin/com/devbrowser/settings/` | 配置持久化 | [settings/CLAUDE.md](src/main/kotlin/com/devbrowser/settings/CLAUDE.md) |
 
 ---
@@ -203,10 +193,10 @@ graph TB
 
 | 指标 | 数值 |
 |------|------|
-| **源文件总数** | 19 个 |
-| **Kotlin 文件** | 17 个 |
+| **源文件总数** | 17 个 |
+| **Kotlin 文件** | 15 个 |
 | **资源文件** | 2 个 (plugin.xml + icons) |
-| **模块数量** | 5 个功能模块 |
+| **模块数量** | 4 个功能模块 |
 | **代码覆盖率** | ~95% (已扫描所有核心模块) |
 
 ---

@@ -7,7 +7,6 @@ import com.intellij.ui.jcef.JBCefApp
 import com.intellij.ui.jcef.JBCefBrowser
 import com.intellij.util.ui.JBUI
 import com.devbrowser.settings.DevBrowserSettingsState
-import com.devbrowser.theme.DarculaThemeAdapter
 import java.awt.BorderLayout
 import javax.swing.JLabel
 import javax.swing.JPanel
@@ -29,9 +28,6 @@ class DevBrowserPanel(
 
     // 浏览器工具栏
     private var browserToolbar: BrowserToolbar? = null
-
-    // Darcula主题适配器
-    private var themeAdapter: DarculaThemeAdapter? = null
 
     // 设置状态管理
     private val settingsState = DevBrowserSettingsState.getInstance(project)
@@ -59,12 +55,6 @@ class DevBrowserPanel(
             // 创建浏览器工具栏
             browserToolbar = BrowserToolbar(browser!!, project)
             add(browserToolbar, BorderLayout.NORTH)
-
-            // 创建Darcula主题适配器（根据设置决定是否启用）
-            themeAdapter = DarculaThemeAdapter(browser!!, settingsState.state.themeEnabled)
-
-            // 将主题适配器关联到工具栏
-            browserToolbar?.setThemeAdapter(themeAdapter!!)
 
             // 加载上次保存的URL或默认页面
             val savedUrl = settingsState.state.lastUrl
@@ -131,7 +121,6 @@ class DevBrowserPanel(
         browser?.dispose()
         browser = null
         browserToolbar = null
-        themeAdapter = null
         removeAll()
     }
 }

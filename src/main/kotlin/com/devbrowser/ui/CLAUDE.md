@@ -14,8 +14,8 @@ UI 模块负责 DevBrowser 插件的用户界面呈现和交互控制，提供�
 
 | 文件名 | 行数 | 职责 | 入口点 |
 |--------|------|------|--------|
-| **DevBrowserPanel.kt** | 138 | 主浏览器面板容器 | `init:39`, `initBrowser():54` |
-| **BrowserToolbar.kt** | 320 | 浏览器控制工具栏 | `init:58`, `setupEventListeners():157` |
+| **DevBrowserPanel.kt** | ~120 | 主浏览器面板容器 | `init:39`, `initBrowser():54` |
+| **BrowserToolbar.kt** | ~250 | 浏览器控制工具栏 | `init:48`, `setupEventListeners():140` |
 
 ---
 
@@ -32,8 +32,7 @@ DevBrowserPanel (BorderLayout)
 │   └── [EAST] 功能按钮面板
 │       ├── bookmarkActionButton (添加/删除书签)
 │       ├── bookmarkListButton (书签列表)
-│       ├── deviceModeButton (PC/移动切换)
-│       └── themeToggleButton (主题开关)
+│       └── deviceModeButton (PC/移动切换)
 └── [CENTER] JBCefBrowser (JCEF 浏览器)
 ```
 
@@ -49,14 +48,13 @@ DevBrowserPanel (BorderLayout)
 ```kotlin
 - JBCefBrowser (JCEF 浏览器引擎)
 - DevBrowserSettingsState (设置持久化)
-- DarculaThemeAdapter (主题适配)
 - BrowserToolbar (工具栏)
 ```
 
 **关键方法**:
 - `initBrowser(): Unit` (54行) - 初始化 JCEF 浏览器实例
-- `showUnsupportedMessage(): Unit` (85行) - JCEF 不支持时显示提示
-- `dispose(): Unit` (121行) - 资源清理和状态保存
+- `showUnsupportedMessage(): Unit` (82行) - JCEF 不支持时显示提示
+- `dispose(): Unit` (110行) - 资源清理和状态保存
 
 **生命周期**:
 ```
@@ -84,7 +82,6 @@ if (JBCefApp.isSupported()) {
 - JBCefBrowser (浏览器实例)
 - BookmarkActionButton & BookmarkListButton (书签模块)
 - DeviceModeButton & DeviceModeController (设备模块)
-- DarculaThemeAdapter (主题模块)
 ```
 
 **布局策略**:
@@ -94,7 +91,7 @@ if (JBCefApp.isSupported()) {
 
 **核心功能实现**:
 
-**1) 智能 URL 处理** (241行):
+**1) 智能 URL 处理** (230行):
 ```kotlin
 normalizeUrl(input: String): String
 - 完整URL → 直接使用
@@ -102,7 +99,7 @@ normalizeUrl(input: String): String
 - 其他 → Google 搜索
 ```
 
-**2) 浏览器状态监听** (201行):
+**2) 浏览器状态监听** (180行):
 ```kotlin
 setupBrowserLoadHandler() {
     onLoadStart → 更新按钮状态
@@ -110,12 +107,7 @@ setupBrowserLoadHandler() {
 }
 ```
 
-**3) 主题切换** (285行):
-```kotlin
-toggleTheme() → 启用/禁用适配 → 保存设置 → 更新按钮
-```
-
-**4) 书签回调协调** (130行):
+**3) 书签回调协调** (120行):
 ```kotlin
 bookmarkActionButton.onBookmarkChanged → 更新列表按钮
 bookmarkListButton.onBookmarkListChanged → 更新星标按钮
@@ -128,7 +120,6 @@ bookmarkListButton.onBookmarkListChanged → 更新星标按钮
 **依赖的模块**:
 - `../bookmark/` - 书签管理和 UI 组件
 - `../device/` - 设备模式切换
-- `../theme/` - Darcula 主题适配
 - `../settings/` - 设置持久化
 
 **被依赖方**:
@@ -174,7 +165,6 @@ border = 4px empty
 1. **JCEF 依赖**: 必须使用 JetBrains Runtime JDK
 2. **资源清理**: `dispose()` 必须保存当前 URL 并释放浏览器
 3. **线程安全**: 所有 UI 更新必须在 Swing 线程 (`SwingUtilities.invokeLater`)
-4. **主题适配器引用**: 必须通过 `setThemeAdapter()` 设置，否则主题按钮无效
 
 ---
 
@@ -183,7 +173,6 @@ border = 4px empty
 ### 单元测试用例
 - [ ] URL 规范化逻辑（normalizeUrl）
 - [ ] 前进/后退按钮状态更新
-- [ ] 主题切换状态持久化
 
 ### 集成测试用例
 - [ ] JCEF 不支持时的降级提示

@@ -18,14 +18,13 @@
 
 ### 📋 项目简介
 
-DevBrowser 是一个轻量级的 IntelliJ IDEA 浏览器插件，为开发者提供无缝集成在 IDE 内的浏览器体验。基于 **JCEF (Java Chromium Embedded Framework)** 实现，支持书签管理、设备模式切换、主题适配等实用功能，让您无需离开 IDE 即可浏览文档、测试网页。
+DevBrowser 是一个轻量级的 IntelliJ IDEA 浏览器插件，为开发者提供无缝集成在 IDE 内的浏览器体验。基于 **JCEF (Java Chromium Embedded Framework)** 实现，支持书签管理、设备模式切换等实用功能，让您无需离开 IDE 即可浏览文档、测试网页。
 
 ### ✨ 核心特性
 
 - 🌐 **嵌入式 Chromium 浏览器** - 完整的现代网页浏览能力
 - 📱 **设备模式切换** - 一键切换 PC/移动端视口和 User-Agent
 - ⭐ **书签管理** - 添加、编辑、删除和快速访问常用网站
-- 🎨 **Darcula 主题适配** - 网页自动适配 IDE 深色主题，视觉统一
 - 💾 **设置持久化** - 自动保存浏览状态、书签和配置
 
 ### 🖼️ 功能展示
@@ -33,7 +32,7 @@ DevBrowser 是一个轻量级的 IntelliJ IDEA 浏览器插件，为开发者提
 #### 主界面
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  ← → ↻  [https://example.com              ] ⭐📚📱🎨      │
+│  ← → ↻  [https://example.com              ] ⭐📚📱         │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │              [ Chromium 浏览器内容区域 ]                    │
@@ -49,7 +48,6 @@ DevBrowser 是一个轻量级的 IntelliJ IDEA 浏览器插件，为开发者提
 - `⭐` 添加/删除书签
 - `📚` 书签列表
 - `📱` PC/移动端切换
-- `🎨` Darcula 主题开关
 
 ### 🚀 快速开始
 
@@ -100,9 +98,6 @@ cd devbrowser
 4. **切换移动端模式**
    点击 📱 按钮，浏览器将模拟移动端的视口和 User-Agent
 
-5. **启用深色主题**
-   点击 🎨 按钮，网页将自动适配 Darcula 配色
-
 ### 📂 项目结构
 
 ```
@@ -121,8 +116,6 @@ devbrowser/
 │   │   ├── UserAgentHandler.kt         # UA 处理
 │   │   ├── MobileViewportAdapter.kt    # 视口适配
 │   │   └── MobileDevice.kt             # 设备配置
-│   ├── theme/                           # 主题模块
-│   │   └── DarculaThemeAdapter.kt      # CSS 注入
 │   └── settings/                        # 设置模块
 │       ├── DevBrowserSettings.kt       # 数据类
 │       └── DevBrowserSettingsState.kt  # 持久化
@@ -154,9 +147,6 @@ devbrowser/
 
 2. **窗口透明度**
    某些操作系统不支持窗口透明度功能（功能会静默失败）
-
-3. **内联样式覆盖**
-   网页使用内联 `style` 属性时，Darcula 主题可能无法完全覆盖
 
 ### 🗺️ 路线图
 

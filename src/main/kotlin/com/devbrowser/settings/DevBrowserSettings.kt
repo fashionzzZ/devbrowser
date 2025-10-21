@@ -13,12 +13,6 @@ data class DevBrowserSettings(
     var lastUrl: String = "https://www.google.com",
 
     /**
-     * 是否启用Darcula主题适配
-     * 默认关闭，用户可通过工具栏按钮控制
-     */
-    var themeEnabled: Boolean = false,
-
-    /**
      * 书签列表
      * 存储用户收藏的网页书签
      */

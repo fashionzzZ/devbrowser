@@ -9,8 +9,6 @@ import com.devbrowser.bookmark.BookmarkActionButton
 import com.devbrowser.bookmark.BookmarkListButton
 import com.devbrowser.device.DeviceModeButton
 import com.devbrowser.device.DeviceModeController
-import com.devbrowser.settings.DevBrowserSettingsState
-import com.devbrowser.theme.DarculaThemeAdapter
 import org.cef.browser.CefBrowser
 import org.cef.browser.CefFrame
 import org.cef.handler.CefLoadHandlerAdapter
@@ -24,7 +22,7 @@ import javax.swing.SwingUtilities
 
 /**
  * 浏览器控制工具栏
- * 提供地址栏、前进/后退/刷新按钮、主题开关、书签功能、设备模式切换
+ * 提供地址栏、前进/后退/刷新按钮、书签功能、设备模式切换
  */
 class BrowserToolbar(
     private val browser: JBCefBrowser,
@@ -47,14 +45,6 @@ class BrowserToolbar(
     private val deviceModeButton: DeviceModeButton = DeviceModeButton()
     private val deviceModeController: DeviceModeController = DeviceModeController(browser)
 
-    // 主题开关按钮
-    private val themeToggleButton: JButton = JButton(AllIcons.General.InspectionsEye)
-    // 主题适配器引用（需要从外部设置）
-    private var themeAdapter: DarculaThemeAdapter? = null
-
-    // 设置状态管理
-    private val settingsState = DevBrowserSettingsState.getInstance(project)
-
     init {
         border = JBUI.Borders.empty(4, 0)
 
@@ -74,8 +64,6 @@ class BrowserToolbar(
         rightButtonPanel.add(bookmarkListButton)
         rightButtonPanel.add(Box.createHorizontalStrut(2))
         rightButtonPanel.add(deviceModeButton)
-        rightButtonPanel.add(Box.createHorizontalStrut(2))
-        rightButtonPanel.add(themeToggleButton)
 
         // 添加到布局
         add(leftButtonPanel, BorderLayout.WEST)
@@ -86,7 +74,6 @@ class BrowserToolbar(
         backButton.toolTipText = "后退"
         forwardButton.toolTipText = "前进"
         refreshButton.toolTipText = "刷新"
-        themeToggleButton.toolTipText = "切换主题适配"
 
         // 设置按钮样式
         configureButton(backButton)
@@ -95,7 +82,6 @@ class BrowserToolbar(
         configureButton(bookmarkActionButton)
         configureButton(bookmarkListButton)
         configureButton(deviceModeButton)
-        configureButton(themeToggleButton)
 
         // 设置书签按钮的回调
         setupBookmarkCallbacks()
@@ -105,7 +91,6 @@ class BrowserToolbar(
 
         // 初始化按钮状态
         updateButtonStates()
-        updateThemeButtonState()
 
         // 绑定事件监听器
         setupEventListeners()
@@ -178,11 +163,6 @@ class BrowserToolbar(
         urlField.addActionListener {
             val url = normalizeUrl(urlField.text)
             browser.loadURL(url)
-        }
-
-        // 主题开关按钮
-        themeToggleButton.addActionListener {
-            toggleTheme()
         }
 
         // 地址栏失去焦点时同步当前URL
@@ -268,52 +248,5 @@ class BrowserToolbar(
      */
     fun getUrl(): String {
         return urlField.text
-    }
-
-    /**
-     * 设置主题适配器引用
-     * 必须在使用前设置
-     */
-    fun setThemeAdapter(adapter: DarculaThemeAdapter) {
-        this.themeAdapter = adapter
-        updateThemeButtonState()
-    }
-
-    /**
-     * 切换主题启用状态
-     */
-    private fun toggleTheme() {
-        val adapter = themeAdapter ?: return
-
-        val newState = !adapter.isThemeEnabled()
-
-        if (newState) {
-            adapter.enableTheme()
-        } else {
-            adapter.disableTheme()
-        }
-
-        // 保存设置
-        settingsState.state.themeEnabled = newState
-
-        // 更新按钮状态
-        updateThemeButtonState()
-    }
-
-    /**
-     * 更新主题按钮的视觉状态
-     */
-    private fun updateThemeButtonState() {
-        val isEnabled = themeAdapter?.isThemeEnabled() ?: settingsState.state.themeEnabled
-
-        // 通过选中状态区分启用/禁用
-        themeToggleButton.isSelected = isEnabled
-
-        // 更新提示文本
-        themeToggleButton.toolTipText = if (isEnabled) {
-            "主题适配：已启用（点击禁用）"
-        } else {
-            "主题适配：已禁用（点击启用）"
-        }
     }
 }
