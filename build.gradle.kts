@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.fashion.devbrowser"
-version = "1.1.0"
+version = "1.2.0"
 
 repositories {
     mavenCentral()
@@ -34,7 +34,7 @@ intellijPlatform {
     pluginConfiguration {
         id = "com.fashion.devbrowser"
         name = "DevBrowser"
-        version = "1.1.0"
+        version = "1.2.0"
 
         ideaVersion {
             sinceBuild = "243"

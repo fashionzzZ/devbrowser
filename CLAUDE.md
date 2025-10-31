@@ -1,10 +1,5 @@
 # DevBrowser - IntelliJ IDEA 浏览器插件
 
-> **最后更新**: 2025-10-20 (Version 1.1.0)
-> **项目类型**: IntelliJ IDEA Plugin (Kotlin)
-> **构建工具**: Gradle 8.10 + IntelliJ Platform Gradle Plugin 2.2.1
-> **目标平台**: IntelliJ IDEA 2024.3+ ~ 2025.2+ (Build 243 ~ 252.*)
-
 ---
 
 ## 📋 项目概述
