@@ -8,6 +8,8 @@ import com.intellij.ui.jcef.JBCefBrowser
 import com.intellij.util.ui.JBUI
 import com.devbrowser.settings.DevBrowserSettingsState
 import java.awt.BorderLayout
+import java.awt.event.HierarchyEvent
+import java.awt.event.HierarchyListener
 import javax.swing.JLabel
 import javax.swing.JPanel
 import javax.swing.SwingConstants
@@ -63,10 +65,40 @@ class DevBrowserPanel(
             // 将浏览器组件添加到面板中心
             add(browser!!.component, BorderLayout.CENTER)
 
+            // 监听显示状态变化：当工具窗口再次显示时，恢复渲染与焦点，避免页面卡住
+            browser!!.component.addHierarchyListener(object : HierarchyListener {
+                override fun hierarchyChanged(e: HierarchyEvent) {
+                    val showingChanged = (e.changeFlags and HierarchyEvent.SHOWING_CHANGED.toLong()) != 0L
+                    if (showingChanged && browser?.component?.isShowing == true) {
+                        restoreRenderingOnShow()
+                    }
+                }
+            })
+
         } catch (e: Exception) {
             // 如果创建失败，显示错误信息
             showErrorMessage("JCEF浏览器初始化失败: ${e.message}")
         }
+    }
+
+    /**
+     * 当面板重新可见时，主动恢复 JCEF 渲染管线与焦点。
+     */
+    private fun restoreRenderingOnShow() {
+        val jbBrowser = browser ?: return
+        val comp = jbBrowser.component
+
+        // 触发Swing层的布局与重绘
+        comp.revalidate()
+        comp.repaint()
+
+        // 恢复键盘焦点，促使渲染恢复
+        if (!comp.isFocusOwner) {
+            comp.requestFocusInWindow()
+        }
+
+        // 如仍未恢复，轻量唤醒（避免频繁强制刷新）
+        // 这里不强制调用 reload，尽量减少对用户会话的打断
     }
 
     /**
