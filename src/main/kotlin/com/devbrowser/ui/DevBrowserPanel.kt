@@ -34,6 +34,9 @@ class DevBrowserPanel(
     // 设置状态管理
     private val settingsState = DevBrowserSettingsState.getInstance(project)
 
+    // 最近一次隐藏时间，用于判定长时间隐藏后的恢复策略
+    private var lastHiddenAt: Long = 0L
+
     init {
         // 设置面板边距
         border = JBUI.Borders.empty(8)
@@ -69,8 +72,12 @@ class DevBrowserPanel(
             browser!!.component.addHierarchyListener(object : HierarchyListener {
                 override fun hierarchyChanged(e: HierarchyEvent) {
                     val showingChanged = (e.changeFlags and HierarchyEvent.SHOWING_CHANGED.toLong()) != 0L
-                    if (showingChanged && browser?.component?.isShowing == true) {
-                        restoreRenderingOnShow()
+                    if (showingChanged) {
+                        if (browser?.component?.isShowing == true) {
+                            restoreRenderingOnShow()
+                        } else {
+                            lastHiddenAt = System.currentTimeMillis()
+                        }
                     }
                 }
             })
@@ -97,8 +104,16 @@ class DevBrowserPanel(
             comp.requestFocusInWindow()
         }
 
-        // 如仍未恢复，轻量唤醒（避免频繁强制刷新）
-        // 这里不强制调用 reload，尽量减少对用户会话的打断
+        // 长时间隐藏后，增加一次温和的忽略缓存刷新，避免 OSR 长时间挂起
+        val hiddenDuration = if (lastHiddenAt > 0L) System.currentTimeMillis() - lastHiddenAt else 0L
+        if (hiddenDuration > 60_000L) {
+            try {
+                jbBrowser.cefBrowser.reloadIgnoreCache()
+                lastHiddenAt = 0L
+            } catch (_: Throwable) {
+                // 忽略刷新失败
+            }
+        }
     }
 
     /**
